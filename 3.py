@@ -17,7 +17,7 @@ print(sum(int(a)*int(b) for a, b in re.findall(MUL_REGEX, data)))
 # that come from the same array, instead keeping only the lowest value.
 # Example: intersperse([0, 2, 10], [3, 4]) would return [0, 3, 10].
 # Classic merge would return [0, 2, 3, 4, 10].
-def intersperse(dos, donts):
+def Intersperse(dos, donts):
     result = [0] # Initially we have an implicit "do" at index 0.
     i, j = 0, 0
     last_was_a_do = True
@@ -39,16 +39,16 @@ def intersperse(dos, donts):
     result.append(dos[i] if i < len(dos) else donts[j])
     return result
 
-def find_start_indices(pattern, string):
+def FindStartIndices(pattern, string):
     return [match.start(0) for match in re.finditer(pattern, data)]
-dos = find_start_indices(DO_REGEX, data)
-donts = find_start_indices(DONT_REGEX, data)
+dos = FindStartIndices(DO_REGEX, data)
+donts = FindStartIndices(DONT_REGEX, data)
 matches = [(match.start(0), int(match.group(1)), int(match.group(2))) for match in re.finditer(MUL_REGEX, data)]
-flips = intersperse(dos, donts)
+flips = Intersperse(dos, donts)
 
 # Iterates over `matches`, using `flips` to determine if a match should be
 # included in the result.
-def part2(matches, flips):
+def Part2(matches, flips):
     result = 0
     match_idx, flip_idx = 0, 0
     while match_idx < len(matches):
@@ -62,4 +62,4 @@ def part2(matches, flips):
     return result
 
 # part 2
-print(part2(matches, flips))
+print(Part2(matches, flips))
