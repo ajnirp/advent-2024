@@ -53,9 +53,9 @@ def Part2(matches, flips):
     match_idx, flip_idx = 0, 0
     while match_idx < len(matches):
         match = matches[match_idx]
-        # Find the largest flip value that's less than the match start index
+        # Find the largest flip value that's less than the match start index.
         flip_idx = bisect.bisect_left(flips, match[0], flip_idx, len(flips)) - 1
-        # Increment the result if we're in a "do"
+        # Increment the result if we're in a "do".
         if flip_idx % 2 == 0:
             result += match[1] * match[2]
         match_idx += 1
