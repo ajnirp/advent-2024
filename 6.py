@@ -56,7 +56,6 @@ def Traverse(grid):
 def Part1(grid):
     return len(Traverse(grid))
 
-# Slow, but I can't come up with a better algorithm.
 # Replace every visited cell with an obstacle and rerun the search.
 def Part2(grid):
     result = 0
@@ -67,8 +66,6 @@ def Part2(grid):
     for r, c in cells_visited:
         if (r, c) == (start_r, start_c):
             continue
-        # grid_copy = [[grid[rr][cc] for cc in range(ncols)] for rr in range(nrows)]
-        # grid_copy[r][c] = '#'
         grid[r][c] = '#'
         traversal = Traverse(grid)
         if not traversal:
