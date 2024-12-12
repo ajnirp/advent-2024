@@ -29,54 +29,51 @@ def FindStart(grid):
 
 DIRECTION_VECTORS = [(-1,0), (0,1), (1,0), (0,-1)]
 
-def Traverse(grid, start_r, start_c, start_direction, unique_moves):
+# Returns a list of cells visited if the guard can exit the grid. Returns None
+# if there is a loop in the grid.
+def Traverse(grid):
     global DIRECTION_VECTORS
-    kNumRows = NumRows(grid)
-    kNumCols = NumCols(grid)
-    r, c = start_r, start_c
-    direction = start_direction  # 0 N, 1 E, 2 S, 3 W
-    all_moves = []
+    num_rows = NumRows(grid)
+    num_cols = NumCols(grid)
+    r, c = FindStart(grid)
+    moves = set()
+    direction = 0  # 0 N, 1 E, 2 S, 3 W
     while True:
-        if (r, c, direction) in unique_moves:
+        if (r, c, direction) in moves:
             return None
-        move = (r, c, direction)
-        unique_moves.add(move)
-        all_moves.append(move)
+        moves.add((r, c, direction))
         dr, dc = DIRECTION_VECTORS[direction]
         next_r, next_c = r + dr, c + dc
-        if not (IsInBounds(next_r, kNumRows) and IsInBounds(next_c, kNumCols)):
+        if not (IsInBounds(next_r, num_rows) and IsInBounds(next_c, num_cols)):
             break
         if grid[next_r][next_c] == '#':
             direction = TurnRight(direction)
             continue
         r, c = next_r, next_c
-    return all_moves
+    cells_visited = set((r, c) for r, c, _ in moves)
+    return cells_visited
 
 def Part1(grid):
-    kStartRow, kStartCol = FindStart(grid)
-    unique_moves = set()
-    all_moves = Traverse(grid, kStartRow, kStartCol, 0, unique_moves)
-    cells_visited = set((r, c) for r, c, _ in all_moves)
-    return len(cells_visited)
+    return len(Traverse(grid))
 
+# Slow, but I can't come up with a better algorithm.
 # Replace every visited cell with an obstacle and rerun the search.
 def Part2(grid):
     result = 0
-    kStartRow, kStartCol = FindStart(grid)
-    kNumRows = NumRows(grid)
-    kNumCols = NumCols(grid)
-    unique_moves = set()
-    all_moves = Traverse(grid, kStartRow, kStartCol, 0, unique_moves)
-    for idx in range(1, len(all_moves)):
-        r, c, direction = all_moves[idx - 1]  # previous move
-        if (r, c) == (kStartRow, kStartCol) and direction == 0:
+    start_r, start_c = FindStart(grid)
+    nrows = NumRows(grid)
+    ncols = NumCols(grid)
+    cells_visited = Traverse(grid)
+    for r, c in cells_visited:
+        if (r, c) == (start_r, start_c):
             continue
-        grid_copy = [[c for c in row] for row in grid]
-        grid_copy[r][c] = '#'
-        moves_prefix = set(all_moves[:idx])
-        traversal = Traverse(grid_copy, r, c, direction, moves_prefix)
+        # grid_copy = [[grid[rr][cc] for cc in range(ncols)] for rr in range(nrows)]
+        # grid_copy[r][c] = '#'
+        grid[r][c] = '#'
+        traversal = Traverse(grid)
         if not traversal:
             result += 1
+        grid[r][c] = '.'
     return result
 
 print(Part1(grid))
