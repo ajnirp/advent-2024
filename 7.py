@@ -76,15 +76,6 @@ def AllNumbersUpTo(upper, base):
 # Not very fast: takes 1m18s on my 2018 laptop.
 # Not sure if there's a more optimal approach.
 def CanSatisfy2(left, right):
-    # Try an early exit: see if the LHS is too small.
-    if left < sum(right):
-        return False
-    # Try an early exit: See if the LHS is too large.
-    product = 1
-    for number in right:
-        product *= number
-    if product < left:
-        return False
     kNumDigits = len(right) - 1
     for ternary_string in AllNumbersUpTo(3 ** kNumDigits, 3):
         result = right[0]
