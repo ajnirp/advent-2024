@@ -21,36 +21,25 @@ def FindAntennaLocations(grid):
 def GenerateAntinodes(r1, c1, r2, c2, part_2, num_rows, num_cols):
     if (r1, c1) == (r2, c2):
         raise ValueError("The antennas coincide")
-    temp = []
-    # Put r1, c1 on top
     if r1 <= r2:
-        r1, c1, r2, c2 = r2, c2, r1, c1
-    row_diff = r2 - r1
-    col_diff = c2 - c1
-    # r1, c1 => r2, c2 goes down and right
-    if c1 < c2:
-        rleft, cleft = r1 - row_diff, c1 - col_diff
-        rright, cright = r2 + row_diff, c2 + col_diff
-        temp.append((rleft, cleft))
-        temp.append((rright, cright))
-    # r1, c1 => r2, c2 goes down and left
-    else:
-        col_diff = -col_diff
-        rleft, cleft = r2 + row_diff, c2 - col_diff
-        rright, cright = r1 - row_diff, c1 + col_diff
-        temp.append((rleft, cleft))
-        temp.append((rright, cright))
-    result = []
-    for (r, c) in temp:
-        if IsInBounds(r, num_rows) and IsInBounds(c, num_cols):
-            result.append((r, c))
-    return result
-
+        r1, c1, r2, c2 = r2, c2, r1, c1  # Put r1, c1 on top.
+    abs_row_diff, abs_col_diff = r2 - r1, abs(c2 - c1)  # Both +ve.
+    direction_vectors = [(-1, -1), (1, 1)] if c1 < c2 else [(-1, 1), (1, -1)]
+    starts = [(r1, c1), (r2, c2)]
+    for (dr, dc), (r, c) in zip(direction_vectors, starts):
+        dr *= abs_row_diff
+        dc *= abs_col_diff
+        while True:
+            r += dr
+            c += dc
+            if not (IsInBounds(r, num_rows) and IsInBounds(c, num_cols)): break
+            yield (r, c)
+            if not part_2: break  # For part 1, break after just one iteration.
 
 # Find all antinodes for all antennas.
 def FindAllAntinodes(antenna_locations, part_2, num_rows, num_cols):
     result = set()
-    for antenna, locations in antenna_locations.items():
+    for locations in antenna_locations.values():
         if len(locations) < 2:
             continue
         for i in range(len(locations)):
@@ -67,12 +56,10 @@ def Solve(grid, part_2):
     kNumRows, kNumCols = NumRows(grid), NumCols(grid)
     all_antinodes = FindAllAntinodes(antenna_locations, part_2, kNumRows, kNumCols)
     if part_2:
-        for _, location in antenna_locations:
-            all_antinodes.add(location)
+        for locations in antenna_locations.values():
+            for location in locations:
+                all_antinodes.add(location)
     return len(all_antinodes)
 
-# Part 1
-print(Solve(grid, False))
-
-# Part 2
-# print(Solve(grid, True))
+# Part 1 and Part 2
+print(Solve(grid, False), Solve(grid, True)) # 390 1246
