@@ -1,10 +1,9 @@
 # python3 4.py < 4.txt
 
+from util import *
+
 with open(0) as file:
     data = [line.strip() for line in file.readlines()]
-
-def IsInBounds(idx, max_idx):
-    return 0 <= idx < max_idx
 
 def Part1(data):
     WORD = 'XMAS'
@@ -26,7 +25,7 @@ def Part1(data):
     return result
 
 # part 1
-print(Part1(data))
+print(Part1(data)) # 2462
 
 def Part2(data):
     WORD = 'MAS'  # expected to have odd length
@@ -44,4 +43,4 @@ def Part2(data):
     return result
 
 # part 2
-print(Part2(data))
+print(Part2(data)) # 1877
