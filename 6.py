@@ -11,14 +11,12 @@
 # user    0m10.570s
 # sys 0m0.057s
 
+from util import *
 
 with open(0) as file:
     grid = file.read().strip().split('\n')
     grid = [[c for c in row] for row in grid]
 
-def NumRows(grid): return len(grid)
-def NumCols(grid): return len(grid[0])  # Assumes `grid` is not empty.
-def IsInBounds(idx, max_idx): return 0 <= idx < max_idx
 def TurnRight(direction): return (direction + 1) % 4
 
 def FindStart(grid):
@@ -73,5 +71,5 @@ def Part2(grid):
         grid[r][c] = '.'
     return result
 
-print(Part1(grid))
-print(Part2(grid))
+print(Part1(grid))  # 4890
+print(Part2(grid))  # 1995
