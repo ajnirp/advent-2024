@@ -1,5 +1,3 @@
-# python3 2.py < 2.txt
-
 with open(0) as file:
     file_contents = file.readlines()
 
@@ -60,4 +58,4 @@ class ArrayWithSkipIndices:
     def at(self, i):
         if not self.skips or i < self.skips[0]:
             return self.arr[i]
-        return self.arr[i - skips[0] + 1]
+        return self.arr[i - self.skips[0] + 1]

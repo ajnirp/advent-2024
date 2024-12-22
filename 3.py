@@ -1,5 +1,3 @@
-# python3 3.py < 3.txt
-
 import bisect
 import re
 

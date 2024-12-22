@@ -1,5 +1,3 @@
-# python3 1.py < 1.txt
-
 from collections import Counter
 
 with open(0) as file:

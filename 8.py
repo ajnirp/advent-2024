@@ -1,5 +1,3 @@
-# python3 8.py < 8.txt
-
 from collections import defaultdict
 from util import *
 

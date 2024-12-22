@@ -1,5 +1,3 @@
-# python3 7.py < 7.txt
-
 def ParseLine(line):
     left, right = line.split(':')
     left = int(left)

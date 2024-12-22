@@ -1,5 +1,3 @@
-# python3 5.py < 5.txt
-
 from collections import defaultdict
 
 with open(0) as file:

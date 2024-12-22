@@ -1,5 +1,3 @@
-# python3 4.py < 4.txt
-
 from util import *
 
 with open(0) as file:
