@@ -25,7 +25,7 @@ def Part1(data):
     return result
 
 # part 1
-print(Part1(data)) # 2462
+print(Part1(data))  # 2462
 
 def Part2(data):
     WORD = 'MAS'  # expected to have odd length
@@ -43,4 +43,4 @@ def Part2(data):
     return result
 
 # part 2
-print(Part2(data)) # 1877
+print(Part2(data))  # 1877
