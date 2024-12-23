@@ -15,8 +15,7 @@ def Score(start, grid, part_1):
     while queue:
         next_wave = []
         for r, c in queue:
-            for nr, nc in Neighbors(r, c):
-                if not (IsInBounds(nr, kNumRows) and IsInBounds(nc, kNumCols)): continue
+            for nr, nc in ValidNeighbors(r, c, kNumRows, kNumCols):
                 if not grid[nr][nc] == grid[r][c] + 1: continue
                 if part_1 and (nr, nc) in seen: continue
                 if grid[nr][nc] == 9:

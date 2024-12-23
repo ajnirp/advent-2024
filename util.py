@@ -7,3 +7,7 @@ def Neighbors(r, c):
     dcs = [0,0,1,-1]
     for dr, dc in zip(drs, dcs):
         yield (r+dr, c+dc)
+def ValidNeighbors(r, c, num_rows, num_cols):
+    for nr, nc in Neighbors(r, c):
+        if IsInBounds(nr, num_cols) and IsInBounds(nc, num_cols):
+            yield nr, nc
