@@ -25,12 +25,11 @@ def FindStart(grid):
             if grid[r][c] == '^':
                 return r, c
 
-DIRECTION_VECTORS = [(-1,0), (0,1), (1,0), (0,-1)]
 
 # Returns a list of cells visited if the guard can exit the grid. Returns None
 # if there is a loop in the grid.
 def Traverse(grid):
-    global DIRECTION_VECTORS
+    DIRECTION_VECTORS = [(-1,0), (0,1), (1,0), (0,-1)]
     num_rows = NumRows(grid)
     num_cols = NumCols(grid)
     r, c = FindStart(grid)
@@ -58,8 +57,6 @@ def Part1(grid):
 def Part2(grid):
     result = 0
     start_r, start_c = FindStart(grid)
-    nrows = NumRows(grid)
-    ncols = NumCols(grid)
     cells_visited = Traverse(grid)
     for r, c in cells_visited:
         if (r, c) == (start_r, start_c):

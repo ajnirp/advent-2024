@@ -1,6 +1,6 @@
 load 'regex'
 require 'format/printf'
-contents =. 1!:1 <'1.txt'
+contents =. 1!:1 <'data/1.txt'
 words =. > '\S+' rxall contents
 numbers =. ((-: # numbers) , 2) $ numbers =. ". words
 sort =. /:~
