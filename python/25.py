@@ -13,15 +13,13 @@ def Classify(blocks, locks, keys):
         if block[0][0] == '#':
             for col in range(num_cols):
                 row = 1
-                while row < num_rows and block[row][col] == '#':
-                    row += 1
+                while row < num_rows and block[row][col] == '#': row += 1
                 heights.append(row - 1)
             locks.append(heights)
         else:
             for col in range(num_cols):
                 row = num_rows - 1
-                while row >= 0 and block[row][col] == '#':
-                    row -= 1
+                while row >= 0 and block[row][col] == '#': row -= 1
                 heights.append(num_rows - row - 2)
             keys.append(heights)
     return num_rows - 2
@@ -36,4 +34,4 @@ def Part1():
     max_height = Classify(blocks, locks, keys)
     return sum(Fits(key, lock, max_height) for key in keys for lock in locks)
 
-print(Part1())
+print(Part1())  # 3365

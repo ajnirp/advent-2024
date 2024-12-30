@@ -44,4 +44,4 @@ def Part1(values, gates):
         result += Evaluate(wire, values, gates)
     return result
 
-print(Part1(values, gates))
+print(Part1(values, gates))  # 65740327379952
