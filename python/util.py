@@ -10,5 +10,11 @@ def Neighbors(r, c):
         yield (r+dr, c+dc)
 def ValidNeighbors(r, c, num_rows, num_cols):
     for nr, nc in Neighbors(r, c):
-        if IsInBounds(nr, num_cols) and IsInBounds(nc, num_cols):
+        if IsInBounds(nr, num_rows) and IsInBounds(nc, num_cols):
             yield nr, nc
+def PrintGrid(grid):
+    num_rows, num_cols = NumRows(grid), NumCols(grid)
+    for r in range(num_rows):
+        for c in range(num_cols):
+            print(grid[r][c], end='')
+        print()
